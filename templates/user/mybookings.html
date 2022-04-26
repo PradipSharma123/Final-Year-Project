@@ -1,0 +1,44 @@
+{% extends 'basic.html' %} {% block title %}Dashboard {% endblock title %} {% block body %}
+{% load app_tags %}
+<div class="container">
+<h3 class="text-center  text-success">My Bookings </h3>
+<table class="table">
+    <thead>
+        
+        <th>Room</th>
+        <th>Room Type</th>
+        <th>Location</th>
+        <th>Check in</th>
+        <th>Check out</th>
+        <th>Person</th>
+        <th>Days</th>
+        <th>Price</th>
+        <th>Amount</th>
+        <th>Pay</th>
+    </thead>
+    {% for each_booking in bookings %}
+    <tr>
+        
+        <td>{{each_booking.room.roomnumber}}</td>
+        <td>{{each_booking.room.get_room_type_display}}</td>
+        <td>{{each_booking.room.hotel.location}}</td>
+        <td>{{each_booking.check_in}}</td>
+        <td>{{each_booking.check_out}}</td>
+        <td>{{each_booking.guest_count}}</td>
+        <td>{{each_booking.date_dif}}</td>
+        <td>{{each_booking.room.price}}</td>
+        <td>{{each_booking.booking_amount}}</td>
+        <td>
+        {% if each_booking.is_payment_pending %}
+        <a class="btn btn-primary" href="{% url 'khaltirequest' each_booking.id %}" role="button">Pay By Khalti</a>
+        {% else %}
+        <button type="button" class="btn btn-success" disabled>Paid</button>
+        {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+
+
+</table>
+</div>
+{% endblock body %}

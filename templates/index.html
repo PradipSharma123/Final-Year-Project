@@ -1,0 +1,379 @@
+    {% extends 'basic.html' %}
+    {% load static %}
+   
+    {% block title %}Harry Guest House
+    {% endblock title %}
+    {% block css %}
+    <style>
+        /* Make the image fully responsive */
+        .carousel-inner img {
+          width: 100%;
+          height: 670px;
+        }
+    </style>
+    {% endblock css %}
+    {% block body %}
+
+    <div id="demo" class="carousel slide" data-ride="carousel">
+        <ul class="carousel-indicators">
+          <li data-target="#demo" data-slide-to="0" class="active"></li>
+          <li data-target="#demo" data-slide-to="1"></li>
+          <li data-target="#demo" data-slide-to="2"></li>
+        </ul>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="{% static 'images/img1.jpg' %}" alt="Los Angeles" width="1100" height="500">
+            <div class="carousel-caption">
+              <h3>AC Room</h3>
+              <p>AC Room with great air conditioner</p>
+            </div>   
+          </div>
+          <div class="carousel-item">
+            <img src="{% static 'images/img2.jpg' %}" alt="Chicago" width="1100" height="500">
+            <div class="carousel-caption">
+              <h3>Deluxe Room</h3>
+              <p>Deluxe room is huge for better comfort</p>
+            </div>   
+          </div>
+          <div class="carousel-item">
+            <img src="{% static 'images/img3.jpg' %}" alt="New York" width="1100" height="500">
+            <div class="carousel-caption">
+              <h3>Non-AC room</h3>
+              <p>With quality rooms in affordable price</p>
+            </div>   
+          </div>
+        </div>
+        <a class="carousel-control-prev" href="#demo" data-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#demo" data-slide="next">
+          <span class="carousel-control-next-icon"></span>
+        </a>
+      </div>
+
+     <!--Booking Section starts here-->
+     <section class="services sec-width" id="services">
+        <div class="title">
+            <h2>services</h2>
+        </div>
+        <div class="services-container">
+            <!-- single service -->
+            <article class="service">
+                <div class="service-icon">
+                    <span>
+                        <i class="fas fa-utensils"></i>
+                    </span>
+                </div>
+                <div class="service-content">
+                    <h2>Food Service/ Food Runner</h2>
+                    <p>Food is considered to be delicious and also should be of different variety. As per as in here there is also the same case. The food available here is delicious since we have expert cooks. Along with the regular food we also serve you Korean foods as well. Along with the availability of korean food, the price is also resonable. </p>
+                    <button type="button" class="btn">Know More</button>
+                </div>
+            </article>
+            <!-- end of single service -->
+            <!-- single service -->
+            <article class="service">
+                <div class="service-icon">
+                    <span>
+                        <i class="fas fa-plane"></i>
+                    </span>
+                </div>
+                <div class="service-content">
+                    <h2>Air Ticket/ Bus Ticket</h2>
+                    <p>When you are travelling transport facility is considered to play a key role. And we have worked up in that sector by
+                    providing you the air travel and bus travel facilities. You can book Air Ticket as well as Bus Ticket entirely from our
+                    hotel. This facility provides you many things which makes you easy to travel every around Nepal in an instinct.</p>
+                    <button type="button" class="btn">Know More</button>
+                </div>
+            </article>
+            <!-- end of single service -->
+            <!-- single service -->
+            <article class="service">
+                <div class="service-icon">
+                    <span>
+                        <i class="fas fa-parachute-box"></i>
+                    </span>
+                </div>
+                <div class="service-content">
+                    <h2>Adventerous activities</h2>
+                    <p>You can directly book for Paragliding ticket within our hotel. Along with this you can book for trekking chooing the 
+                        destinations you like. You can also book for bungee jumping easily. The service is quick, you just need to inform us 
+                    what you want to book and within 24 hours the ticket is ready for you </p>
+                    <button type="button" class="btn">Know More</button>
+                </div>
+            </article>
+            <!-- end of single service -->
+            <!-- single service -->
+            <article class="service">
+                <div class="service-icon">
+                    <span>
+                        <i class="fas fa-door-closed"></i>
+                    </span>
+                </div>
+                <div class="service-content">
+                    <h2>Room Security</h2>
+                    <p>As you are travelling from far way, we don't compromise in any risk that might happen to you.
+                        So, We have already prepared for this by providing extra security to make your stay more fluent.
+                        We have provided dual lock system during keeping your lougages. And we have also secutity camera 
+                        in most of the place of the hotel.
+                    </p>
+                    <button type="button" class="btn">Know More</button>
+                </div>
+            </article>
+            <!-- end of single service -->
+        </div>
+    </section>
+    
+    <section>
+        <div class="container-fluid py-5 px-5 ">
+            <form action="" method="POST">
+            {% csrf_token %}
+            <div class="row justify-content-center py-5 bg-light">
+                <div class="col-lg-4">
+                    <label for="">Location</label>
+                    <select class="form-control" name="search_location" id="roomstatus">
+                        <!--Hotel id and location-->
+                        <option>Location</option>
+                        {% for each_location,each_hotel_id in all_location %}
+                            
+                            <option value={{each_hotel_id}}>{{each_location}}</option>
+                        {% endfor %}    
+                        
+                        
+                            
+                    </select>
+                </div>
+                {%load app_tags%}
+                <div class="col-lg-2">
+                    <label for="">Check in</label>
+                    <input class="form-control mr-sm-2" type="date" placeholder="Check in" name="cin" min={%todays_date%} max={% max_date %} aria-label="Search" required="True">
+                </div>
+                <div class="col-lg-2">
+                    <label for="">Check Out</label>
+                    <input class="form-control mr-sm-2" type="date" placeholder="Check out" name="cout" min={%tommorow%} max={% max_date%} aria-label="Search" required="True">
+                </div>
+                <div class="col-lg-2">
+                    <label for="">Person</label>
+                    <input class="form-control mr-sm-2" type="number" placeholder="Person" name="capacity" aria-label="Search" required="True">
+                </div>
+                <div class="col-lg-2">
+
+                    <input type="submit" value="Check Availabilty" class="form-control mr-sm-2 btn btn-primary my-4" style="position: relative;top: 7px;">
+                </div>
+                {% if rooms %}
+                <p class="text-center text-success">Rooms Available</p>
+                {% endif %}
+                
+            </div>
+            </form>
+
+        </div>
+    </section>
+    <!--Booking Section ends here-->
+    <!--Fetched reults appear here-->
+    <div class="container px-0 mx-aut">
+        {% if rooms %}
+           <table class="table">
+               <thead class="o">
+                <th>Type</th>
+                <th>Location</th>
+                <th>Person</th>
+                <th>price</th>
+                <th>Action</th>
+            </thead>
+            {% for r in rooms %}
+                <tr class="">
+                <td>{{ r.get_room_type_display }}</td>
+                <td>{{ r.hotel.location }}</td>
+                <td>{{ r.capacity }}</td>
+                <td>{{ r.price }}</td>
+                
+                <td><a href="/user/book-room?roomid={{r.id}}"><button class="btn btn-warning">Book Now</button></a></td>
+                </tr>
+            {% endfor %}
+            
+           </table> 
+        {% endif %}
+    </div>
+    <!--Fetched results ends here-->
+
+    <section class="rooms sec-width" id="rooms">
+        <div class="title">
+            <h2>rooms</h2>
+        </div>
+        <div class="rooms-container">
+            <!-- single room -->
+            <article class="room">
+                <div class="room-image">
+                    <img src="{% static 'images/img1.jpg' %}" alt="room image">
+                </div>
+                <div class="room-text">
+                    <h3>Deluxe Rooms</h3>
+                    <ul>
+                        <li>
+                            <i class="fas fa-arrow-alt-circle-right"></i>
+                            Hot shower with Huge Tub 
+                        </li>
+                        <li>
+                            <i class="fas fa-arrow-alt-circle-right"></i>
+                            A Balcony with a best view
+                        </li>
+                        <li>
+                            <i class="fas fa-arrow-alt-circle-right"></i>
+                            Directly order food in your room 
+                        </li>
+                    </ul>
+                    <p>Deluxe rooms consist of several rooms. Typically, these are a bedroom and a living room. There are also suites with
+                    separate kitchens. In family hotels deluxe rooms are equipped with a separate nursery.</p> 
+                    
+                    
+                    
+                        
+                    
+                 
+
+                    <p>Deluxe rooms is consedered one of the most expensive rooms in the hotel. Deluxe (De luxe) – the word is from the French
+                    language,
+                    literally can be translated as of luxury. The luxury in the modern hotel industry has several degrees. Deluxe rooms
+                    – are the spectacular examples of that fact.</p>
+                    <p class="rate">
+                        <span>RS 19,999 /</span> Per Night
+                    </p>
+                   <button type="button" class="btn" ><a href="#">Book now</a></button>
+
+
+                </div>
+            </article>
+            <!-- end of single room -->
+            <!-- single room -->
+            <article class="room">
+                <div class="room-image">
+                    <img src="{% static 'images/img2.jpg' %}" alt="room image">
+                </div>
+                <div class="room-text">
+                    <h3>AC Rooms</h3>
+                    <ul>
+                        <li>
+                            <i class="fas fa-arrow-alt-circle-right"></i>
+                            Hot Shower with Tub
+                        </li>
+                        <li>
+                            <i class="fas fa-arrow-alt-circle-right"></i>
+                            A Balcony with good view
+                        </li>
+                        <li>
+                            <i class="fas fa-arrow-alt-circle-right"></i>
+                            High quality Air conditioner
+                        </li>
+                    </ul>
+                    <p>AC room have better air conditioning system rather than other rooms. Not only this, the room category is also 
+                        equipped with many other facilities as well. You have hot shower with tub in the bathroom, outside you can see 
+                        a nice view of mountains from our huge balcony.
+                    </p>
+                    <p>This room is also equipped with ordering the food you like within your room rather than going to eat in the hotel
+                        dining. This is all done for your comfort as well as to make you feel like your second home.
+                    </p>
+                    <p class="rate">
+                        <span>RS 14,999 /</span> Per Night
+                    </p>
+                    <button type="button" class="btn"><a href="#">Book now</a></button>
+                </div>
+            </article>
+            <!-- end of single room -->
+            <!-- single room -->
+            <article class="room">
+                <div class="room-image">
+                    <img src="{% static 'images/img3.jpg' %}" alt="room image">
+                </div>
+                <div class="room-text">
+                    <h3>Non-AC Rooms</h3>
+                    <ul>
+                        <li>
+                            <i class="fas fa-arrow-alt-circle-right"></i>
+                            Hot shower
+                        </li>
+                        <li>
+                            <i class="fas fa-arrow-alt-circle-right"></i>
+                            Good Window view
+                        </li>
+                        <li>
+                            <i class="fas fa-arrow-alt-circle-right"></i>
+                            Comfortable Beds and Sofas 
+                        </li>
+                    </ul>
+                    <p>Non- AC rooms are normal rooms but it is rich with several facilities. You can get hot shower in the bathroom
+                        And the view from window is preety good as well. There is free wifi facility and laundry service is also available.
+                    </p>
+                    <p>This room category is kept valuing the quality of room also with really affordable price. The pricing is considerd best 
+                        according tho the room quality that you get during your stay. </p>
+                    <p class="rate">
+                        <span>RS 9,999 /</span> Per Night
+                    </p>
+                    <button type="button" class="btn"><a href="#">Book Now</a></button>
+                </div>
+            </article>
+            <!-- end of single room -->
+        </div>
+    </section>
+
+    <section class="customers" id="customers">
+        <div class="sec-width">
+            <div class="title">
+                <h2>customers</h2>
+            </div>
+            <div class="customers-container">
+                <!-- single customer -->
+                <div class="customer">
+                    <div class="rating">
+                        <span><i class="fas fa-star"></i></span>
+                        <span><i class="fas fa-star"></i></span>
+                        <span><i class="fas fa-star"></i></span>
+                        <span><i class="fas fa-star"></i></span>
+                        <span><i class="far fa-star"></i></span>
+                    </div>
+                    <h3>We Loved it</h3>
+                    <p>Me and my wife, during our travel in Nepal, we went to book a room in a hotel called harry guest house. The amount of services provided in here is the best. Anything you need to book you can just book directly from the hotel. Thank You for everything.</p>
+                    <img src="{% static 'images/cus1.jpg' %}" alt="customer image">
+                    <p>Andrew Lopez</p>
+                </div>
+                <!-- end of single customer -->
+                <!-- single customer -->
+                <div class="customer">
+                    <div class="rating">
+                        <span><i class="fas fa-star"></i></span>
+                        <span><i class="fas fa-star"></i></span>
+                        <span><i class="fas fa-star"></i></span>
+                        <span><i class="fas fa-star"></i></span>
+                        <span><i class="far fa-star"></i></span>
+                    </div>
+                    <h3>Comfortable Living</h3>
+                    <p>Hey guys, I have been regular customer in here, I recommend you this hotel with ease because the quality of room with in the price, room is best here. Along with this you have comfortable sofa during sitting in the balcony to enjoy the view. </p>
+                    <img src="{% static 'images/cus2.jpg' %}" alt="customer image">
+                    <p>Jessica De Caprico</p>
+                </div>
+                <!-- end of single customer -->
+                <!-- single customer -->
+                <div class="customer">
+                    <div class="rating">
+                        <span><i class="fas fa-star"></i></span>
+                        <span><i class="fas fa-star"></i></span>
+                        <span><i class="fas fa-star"></i></span>
+                        <span><i class="fas fa-star"></i></span>
+                        <span><i class="far fa-star"></i></span>
+                    </div>
+                    <h3>Nice Place</h3>
+                    <p>Me and my friends went to Nepal and the room we got was nice with quality beds and all of the things and services provided here is really nice as well. I really liked the hot shower and the balcony view in Deluxer room was also good. Thank you !! </p>
+                    <img src="{% static 'images/cus3.jpg' %}" alt="customer image">
+                    <p>Steven Poudel</p>
+                </div>
+                <!-- end of single customer -->
+            </div>
+        </div>
+    </section>
+
+
+  
+    
+    {% endblock body %}
+   
+   
