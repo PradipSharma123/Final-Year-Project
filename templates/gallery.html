@@ -1,0 +1,48 @@
+{% extends 'basic.html' %}
+{% load static %}
+{% block title %}contact
+{% endblock title %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/gallery.css' %}">
+{% endblock css %}
+{% block body %}
+<div class="gallery" id="gallery">
+    <ul class="controls">
+        <li class="buttons">
+            <a href="{% url 'gallerypage' %}" style="text-decoration:none;">All</a>
+        </li>
+        <br>
+        {% for category in categories %}
+        <li class="buttons">
+            <a href="{% url 'gallerypage' %}?category={{category.name}}" style="text-decoration:none;">{{category.name}}</a>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <div class="image-container">
+        {% for photo in photos %}
+        <a href="{{photo.image.url}}" class="image">
+            <img src="{{photo.image.url}}" alt="">
+        </a>
+        {% endfor %}
+
+    </div>
+
+</div>
+<br>
+<br>
+{% endblock body %}
+{% block js %}
+<script>
+    // Add active class to the current button (highlight it)
+    var header = document.getElementById("gallery");
+    var btns = header.getElementsByClassName("buttons");
+    for (var i = 0; i < btns.length; i++) {
+        btns[i].addEventListener("click", function () {
+            var current = document.getElementsByClassName("active");
+            current[0].className = current[0].className.replace(" active", "");
+            this.className += " active";
+        });
+    }
+</script>
+{% endblock js %}

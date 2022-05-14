@@ -10,6 +10,7 @@
           width: 100%;
           height: 670px;
         }
+        #more {display: none;}
     </style>
     {% endblock css %}
     {% block body %}
@@ -66,8 +67,11 @@
                 </div>
                 <div class="service-content">
                     <h2>Food Service/ Food Runner</h2>
-                    <p>Food is considered to be delicious and also should be of different variety. As per as in here there is also the same case. The food available here is delicious since we have expert cooks. Along with the regular food we also serve you Korean foods as well. Along with the availability of korean food, the price is also resonable. </p>
-                    <button type="button" class="btn">Know More</button>
+                    <p>Food is considered to be delicious and also should be of different variety. 
+                        As per as in here there is also the same case. The food available here is delicious since we have expert cooks. 
+                        Along with the regular food we also serve you Korean foods as well. <span id="dots">...</span><span id="more">
+                        Along with the availability of korean food, the price is also resonable.</span> </p>
+                    <button onclick="myFunction()" class="btn" id="myBtn">Know More</button>
                 </div>
             </article>
             <!-- end of single service -->
@@ -82,8 +86,8 @@
                     <h2>Air Ticket/ Bus Ticket</h2>
                     <p>When you are travelling transport facility is considered to play a key role. And we have worked up in that sector by
                     providing you the air travel and bus travel facilities. You can book Air Ticket as well as Bus Ticket entirely from our
-                    hotel. This facility provides you many things which makes you easy to travel every around Nepal in an instinct.</p>
-                    <button type="button" class="btn">Know More</button>
+                     hotel. This facility provides you many things <!--<span id="dot">...</span><span id="more"> -->which makes you easy to travel every around Nepal in an instinct. <!--</span></p> -->
+                    <button onclick="myFunction()" class="btn" id="myBtn">Know More</button>
                 </div>
             </article>
             <!-- end of single service -->
@@ -95,10 +99,10 @@
                     </span>
                 </div>
                 <div class="service-content">
-                    <h2>Adventerous activities</h2>
+                    <h2>Adventurous activities</h2>
                     <p>You can directly book for Paragliding ticket within our hotel. Along with this you can book for trekking chooing the 
                         destinations you like. You can also book for bungee jumping easily. The service is quick, you just need to inform us 
-                    what you want to book and within 24 hours the ticket is ready for you </p>
+                    what you want to book and within 24 hours the ticket is ready for you. </span> </p>
                     <button type="button" class="btn">Know More</button>
                 </div>
             </article>
@@ -239,7 +243,7 @@
                     <p class="rate">
                         <span>RS 19,999 /</span> Per Night
                     </p>
-                   <button type="button" class="btn" ><a href="#">Book now</a></button>
+                   
 
 
                 </div>
@@ -276,7 +280,7 @@
                     <p class="rate">
                         <span>RS 14,999 /</span> Per Night
                     </p>
-                    <button type="button" class="btn"><a href="#">Book now</a></button>
+                    
                 </div>
             </article>
             <!-- end of single room -->
@@ -309,7 +313,7 @@
                     <p class="rate">
                         <span>RS 9,999 /</span> Per Night
                     </p>
-                    <button type="button" class="btn"><a href="#">Book Now</a></button>
+                    
                 </div>
             </article>
             <!-- end of single room -->
@@ -375,5 +379,25 @@
   
     
     {% endblock body %}
+    {% block js %}
+    <script>
+        function myFunction() {
+            var dots = document.getElementById("dots");
+            var moreText = document.getElementById("more");
+            var btnText = document.getElementById("myBtn");
+
+            if (dots.style.display === "none") {
+                dots.style.display = "inline";
+                btnText.innerHTML = "Know More";
+                moreText.style.display = "none";
+            } else {
+                dots.style.display = "none";
+                btnText.innerHTML = "Read less";
+                moreText.style.display = "inline";
+            }
+        }
+    </script>
+    
+    {% endblock js %}
    
    

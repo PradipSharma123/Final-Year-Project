@@ -1,6 +1,50 @@
 {% extends 'basic.html' %}
+{% load static %}
 {% block title %}contact
 {% endblock title %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/contact.css' %}">
+{% endblock css %}
 {% block body %}
-<h1 class="text-center text-success">Contact Page </h1>
+
+<div class="hero">
+    <nav>
+        <h2 class="logo">Portfo<span style="color:#f9004d">lio</span></h2>
+        <a href="#" class="btn-book">BookNow</a>
+    </nav>
+
+    <div class="content">
+        <h4>Hello, my name is</h4>
+        <h1>Harry <span style="color:#f9004d">Sharma</span></h1>
+        <h3>Hotel Manager/ Owner</h3>
+        <div class="newslatter">
+            <form>
+                <input type="email" name="email" id="mail" placeholder="Enter Your Email">
+                <input type="submit" name="submit" value="Lets Start">
+            </form>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<div class="contact-in">
+    <div class="contact-map">
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d28128.385216613577!2d83.96595162009528!3d28.20584959325889!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3995951d4076205d%3A0x728f4e86fd77da60!2sHarry%20Guest%20House%EF%BC%86restaurant!5e0!3m2!1sen!2snp!4v1638871010481!5m2!1sen!2snp"
+            width="100%" height="auto" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+    <div class="contact-form">
+        <h1 style="color:rgb(82, 48, 48)">Contact Us</h1>
+        <form>
+            <input type="text" placeholder="Name" class="contact-form-txt" />
+            <input type="text" placeholder="Email" class="contact-form-txt" />
+            <textarea placeholder="Message" class="contact-form-textarea"></textarea>
+            <input type="submit" name="Submit" class="contact-form-btn" />
+        </form>
+    </div>
+</div>
+<br>
+<br>
+
+
 {% endblock body %}

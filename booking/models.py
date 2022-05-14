@@ -2,56 +2,60 @@ from django.db import models
 import enum
 from django.contrib.auth.models import User
 # Create your models here.
+
+
 class Hotels(models.Model):
     #h_id,h_name,owner ,location,rooms
-    name = models.CharField(max_length=30,default="booking")
+    name = models.CharField(max_length=30, default="booking")
     owner = models.CharField(max_length=20)
     location = models.CharField(max_length=50)
-    state = models.CharField(max_length=50,default="maharashtra")
-    country = models.CharField(max_length=50,default="india")
+    state = models.CharField(max_length=50, default="maharashtra")
+    country = models.CharField(max_length=50, default="india")
+
     def __str__(self):
         return self.name
 
 
 class Rooms(models.Model):
-    ROOM_STATUS = ( 
-    ("1", "available"), 
-    ("2", "not available"),    
-    ) 
-
-    ROOM_TYPE = ( 
-    ("1", "premium"), 
-    ("2", "deluxe"),
-    ("3","basic"),    
-    ) 
-
-    METHOD = (
-    ("Cash On Checkout", "Cash On Checkout"),
-    ("Khalti", "Khalti"),
-    
+    ROOM_STATUS = (
+        ("1", "available"),
+        ("2", "not available"),
     )
 
-    #type,no_of_rooms,capacity,prices,Hotel
-    room_type = models.CharField(max_length=50,choices = ROOM_TYPE)
+    ROOM_TYPE = (
+        ("1", "premium"),
+        ("2", "deluxe"),
+        ("3", "basic"),
+    )
+
+    METHOD = (
+        ("Cash On Checkout", "Cash On Checkout"),
+        ("Khalti", "Khalti"),
+
+    )
+
+    # type,no_of_rooms,capacity,prices,Hotel
+    room_type = models.CharField(max_length=50, choices=ROOM_TYPE)
     capacity = models.IntegerField()
     price = models.DecimalField(decimal_places=2, max_digits=10)
     size = models.IntegerField()
-    hotel = models.ForeignKey(Hotels, on_delete = models.CASCADE)
-    status = models.CharField(choices =ROOM_STATUS,max_length = 15)
+    hotel = models.ForeignKey(Hotels, on_delete=models.CASCADE)
+    status = models.CharField(choices=ROOM_STATUS, max_length=15)
     roomnumber = models.IntegerField()
     payment_method = models.CharField(
-        max_length=50, choices = METHOD)
-    
+        max_length=50, choices=METHOD)
+
     def __str__(self):
         return self.hotel.name
 
+
 class Reservation(models.Model):
 
-    check_in = models.DateField(auto_now =False)
+    check_in = models.DateField(auto_now=False)
     check_out = models.DateField()
-    room = models.ForeignKey(Rooms, on_delete = models.CASCADE)
-    guest = models.ForeignKey(User, on_delete= models.CASCADE)
-    booking_id = models.CharField(max_length=100,default="null")
+    room = models.ForeignKey(Rooms, on_delete=models.CASCADE)
+    guest = models.ForeignKey(User, on_delete=models.CASCADE)
+    booking_id = models.CharField(max_length=100, default="null")
     payment_status = models.IntegerField(default=1)
     guest_count = models.IntegerField(default=1)
 
@@ -71,7 +75,29 @@ class Reservation(models.Model):
         return PaymentStatus(self.payment_status).name
 
 
+class Category(models.Model):
+    name = models.CharField(max_length=100, blank=False, null=False)
+
+    def __str__(self) -> str:
+        return self.name
+
+
+class Photo(models.Model):
+    category = models.ForeignKey(
+        Category, on_delete=models.SET_NULL, null=True, blank=True)
+    image = models.ImageField(upload_to='images', null=False, blank=False)
+    topic = models.CharField(max_length=30, default='Add topic here')
+
+    def __str__(self) -> str:
+        return self.topic
+
+
+class Slider(models.Model):
+    slider_img = models.ImageField(upload_to='pics')
+    slider_title = models.CharField(max_length=200)
+    slider_desc = models.TextField(max_length=250)
+
+
 class PaymentStatus(enum.IntEnum):
-   Pending = 1
-   Paid = 2
-   
+    Pending = 1
+    Paid = 2
